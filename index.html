@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1d3bff">
+<title>A letter for you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cobalt: #1d3bff;
+    --ink: #0a1033;
+    --paper: #f2f5ff;
+    --yellow: #ffd60a;
+    --line: #c5cdf5;
+    --muted: #3b4470;
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+  .on-paper :focus-visible { outline-color: var(--cobalt); }
+
+  #progress { position: fixed; inset: 0 0 auto 0; height: 4px; background: var(--yellow); transform: scaleX(0); transform-origin: left; z-index: 20; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; min-height: 100svh; background: var(--cobalt); color: #fff; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(1.5rem, 5vw, 4rem); }
+  .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(4.2rem, 16vw, 12rem); line-height: .9; letter-spacing: -.035em; margin: 0 0 1.5rem; }
+  .lede { font-family: var(--display); font-weight: 500; font-size: clamp(1.2rem, 2.4vw, 1.7rem); line-height: 1.3; max-width: 30ch; margin: 0 0 1.25rem; }
+  .meta { font-family: var(--display); font-size: .95rem; margin: 0 0 1.75rem; color: #dfe4ff; }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+  .btn { font-family: var(--display); font-weight: 700; font-size: 1rem; padding: .9rem 1.4rem; border-radius: 10px; border: 2px solid transparent; cursor: pointer; text-decoration: none; display: inline-block; line-height: 1.1; }
+  .btn[hidden] { display: none; }
+  .btn-yellow { background: var(--yellow); color: var(--ink); }
+  .btn-yellow:hover { background: #ffe14d; }
+  .btn-ghost { background: transparent; color: #fff; border-color: #fff; }
+  .btn-ghost:hover { background: rgba(255,255,255,.14); }
+  .skip { font-family: var(--display); font-weight: 500; color: #fff; text-underline-offset: 4px; padding: .5rem .25rem; }
+  .short { margin-top: 1.5rem; max-width: 40rem; border-left: 4px solid var(--yellow); padding: .25rem 0 .25rem 1.1rem; font-family: var(--display); font-size: 1.1rem; line-height: 1.5; }
+  .short[hidden] { display: none; }
+  .short ul { margin: 0; padding-left: 1.1rem; }
+  .short li { margin: .3rem 0; }
+
+  .ball { position: absolute; top: clamp(1.5rem, 5vw, 4rem); right: clamp(1.5rem, 5vw, 4rem); width: clamp(120px, 24vw, 320px); height: auto; animation: serve 1.7s cubic-bezier(.2,.7,.3,1) both; }
+  @keyframes serve {
+    0%   { transform: translate(-70vw, 60vh) rotate(-540deg); opacity: 0; }
+    15%  { opacity: 1; }
+    65%  { transform: translate(-12vw, -6vh) rotate(-140deg); }
+    100% { transform: translate(0, 0) rotate(0); }
+  }
+
+  /* Letter */
+  .letter-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) 1.25rem; display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 3rem; }
+  .rail { position: sticky; top: 2rem; align-self: start; font-family: var(--display); }
+  .rail ul { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+  .rail a { display: block; padding: .55rem 0 .55rem 1rem; margin-left: -2px; border-left: 2px solid transparent; color: var(--muted); text-decoration: none; font-weight: 500; font-size: .98rem; }
+  .rail a:hover { color: var(--ink); }
+  .rail a.active { color: var(--ink); font-weight: 700; border-left-color: var(--cobalt); }
+  article { max-width: 38rem; font-size: 1.2rem; line-height: 1.75; }
+  article p { margin: 0 0 1.35em; }
+  .dear { font-family: var(--display); font-weight: 700; font-size: 2.2rem; line-height: 1.1; margin: 0 0 1.5rem; }
+  article h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; letter-spacing: -.015em; margin: 3.5rem 0 1.25rem; scroll-margin-top: 1.5rem; }
+  article section:first-of-type h2 { margin-top: 0; }
+  .note { border-left: 4px solid var(--cobalt); background: #e3e8ff; padding: 1.1rem 1.25rem; border-radius: 0 10px 10px 0; }
+  .signoff { font-family: var(--display); font-weight: 700; font-size: 2rem; margin: 2rem 0 0; }
+
+  /* Reply */
+  .reply { background: var(--ink); color: #fff; padding: clamp(3rem, 8vw, 6rem) 1.25rem; scroll-margin-top: 0; }
+  .reply-inner { max-width: 760px; margin: 0 auto; }
+  .reply h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 7vw, 4.5rem); line-height: .98; letter-spacing: -.025em; margin: 0 0 1rem; }
+  .reply p.sub { font-family: var(--display); font-size: 1.15rem; line-height: 1.45; color: #d6dcff; margin: 0 0 1.75rem; max-width: 36rem; }
+  .choices { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.25rem; }
+  .choice { font-family: var(--display); font-weight: 700; font-size: 1rem; padding: .8rem 1.2rem; border-radius: 10px; border: 2px solid #8f9cff; background: transparent; color: #fff; cursor: pointer; }
+  .choice:hover { border-color: #fff; }
+  .choice[aria-pressed="true"] { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+  .reply label { display: block; font-family: var(--display); font-weight: 500; margin-bottom: .5rem; color: #d6dcff; }
+  .reply textarea { width: 100%; min-height: 8.5rem; padding: 1rem; border-radius: 10px; border: 2px solid transparent; background: var(--paper); color: var(--ink); font: 1.1rem/1.5 var(--serif); resize: vertical; }
+  .reply-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-top: 1rem; }
+  .btn-yellow[disabled] { opacity: .45; cursor: not-allowed; }
+  .status { font-family: var(--display); font-size: .95rem; color: #d6dcff; min-height: 1.4em; margin: .9rem 0 0; }
+  .foot { font-family: var(--display); font-size: .9rem; color: #9ea9e6; margin: 2.5rem 0 0; }
+
+  @media (max-width: 900px) {
+    .letter-wrap { grid-template-columns: 1fr; }
+    .rail { display: none; }
+    article { font-size: 1.12rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .ball { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+
+<header class="hero">
+  <svg class="ball" viewBox="0 0 200 200" role="img" aria-label="A volleyball">
+    <defs><clipPath id="clip"><circle cx="100" cy="100" r="96"/></clipPath></defs>
+    <circle cx="100" cy="100" r="96" fill="#ffd60a"/>
+    <g clip-path="url(#clip)" fill="none" stroke="#0a1033" stroke-width="5" stroke-linecap="round">
+      <g id="arm"><path d="M100 100 C 96 62, 124 24, 200 22"/><path d="M100 100 C 112 70, 150 56, 200 60"/></g>
+      <use href="#arm" transform="rotate(120 100 100)"/>
+      <use href="#arm" transform="rotate(240 100 100)"/>
+    </g>
+    <circle cx="100" cy="100" r="96" fill="none" stroke="#0a1033" stroke-width="5"/>
+  </svg>
+
+  <h1>I like you.</h1>
+  <p class="lede">I would like to meet you, and the rest of this page is why you can trust me when I say that.</p>
+  <p class="meta"><span id="byline">From Zee.</span> About 8 minutes to read.</p>
+
+  <div class="actions">
+    <a class="btn btn-yellow" href="#letter">Read the letter</a>
+    <button class="btn btn-ghost" id="shortBtn" type="button" aria-expanded="false" aria-controls="short">Give me the short version</button>
+    <a class="skip" href="#reply">Skip to reply</a>
+  </div>
+
+  <div class="short" id="short" hidden>
+    <ul>
+      <li>I like you, and I want to meet you in person.</li>
+      <li>You can video call first, bring a friend, or pick a busy public place.</li>
+      <li>I will be straight with you the whole way, and a no is okay.</li>
+    </ul>
+  </div>
+</header>
+
+<div class="letter-wrap on-paper" id="letter">
+  <nav class="rail" aria-label="Sections">
+    <ul>
+      <li><a href="#why">Why I'm writing</a></li>
+      <li><a href="#pitch">What you'd be getting</a></li>
+      <li><a href="#trust">Why you can trust me</a></li>
+      <li><a href="#meet">Meeting for real</a></li>
+      <li><a href="#last">The last bit</a></li>
+      <li><a href="#reply">Reply</a></li>
+    </ul>
+  </nav>
+
+  <article>
+    <p class="dear" id="dear">Hi,</p>
+      <section id="why">
+        <h2>Why I'm writing</h2>
+        <p>Let me skip the long warm-up: I like you. I am not saying it in a quiet, hoping-you-notice kind of way, and I am not going to keep acting like I am just another name in your notifications. I catch myself checking my phone for your messages when I should be paying attention to literally anything else, and I would rather admit that than pretend I am cool about it.</p>
+        <p>We only know each other online, and I understand that makes this a little unusual. A screen gives me your words, your humor, and your timing, and honestly that has been enough to keep me interested. But a screen also hides a lot. I cannot hear how you laugh. I cannot see what your face does when something catches you off guard. I cannot tell whether you are the same person when nobody is typing. I want those answers, and I would rather find them out for real than keep guessing from a chat window.</p>
+        <p>I should be honest that there is no dramatic origin story here. Nothing cinematic happened, and I am not going to invent a moment to make this sound better. You just kept being interesting, one conversation at a time, until I realized I was looking forward to your messages more than most things in my day. That is a quieter way to like someone, but it is also the kind that tends to stick, because it was built on actual conversation and not on a rush.</p>
+        <p>So here is what I want. I want to meet you in person, and I want to get to know you a lot better than this allows. Not the highlight version. The real one: what you are like when you are tired, what you get weirdly passionate about, what makes you roll your eyes, and what you are like when a conversation has no one to impress. I am curious about all of it, and I do not think curiosity that strong is something I can fake.</p>
+        <p>I will also admit that I rehearsed this a few times before writing it, and none of the versions sounded right until I decided to stop trying to sound smooth. So this is the unpolished version. If a line lands badly, blame the nerves, not the intentions. I would rather you read something slightly clumsy and true than something perfect that I borrowed from the internet.</p>
+        <p>I am also not going to write you a poem about the stars. That is not how I talk, and I do not think you would believe it if I did. I like you, I want to see you, and I want to earn your trust the normal way, by being direct and then backing it up. If that sounds less dramatic than a movie, good. Real things usually are, and I would rather be real with you than impressive.</p>
+      </section>
+      <section id="pitch">
+        <h2>What you'd be getting</h2>
+        <p>Here is my pitch, since you should know what you would be getting. I play volleyball, so I am competitive, I stay calm under pressure, and I will chase a ball everyone else has already given up on. The sport has taught me that you cannot fake your way through a team game. You show up to practice, you cover your teammates, and when a play breaks down you own it. I am 5'10", which helps at the net and in a crowded room, but the habits behind it matter more than the height.</p>
+        <p>The rest of the pitch is more practical. I can cook, so dinner with me will not be boring, and I handle my own chores, so I am not a project you would have to manage. I am good with tech and multimedia, which means I can fix the thing that keeps glitching, edit your photos and videos better than your phone can, and make a playlist that has actual thought behind it. I perform well when it counts, and I like being the person people can hand a problem to.</p>
+        <p>If you are wondering how I would act around you, here is the short version. I am the teammate who hypes people up. In volleyball, the best players are not always the loudest ones. They are the ones who make everyone around them play better. I want to be that for you: someone who celebrates your wins loudly, stays steady when your week goes badly, and tells you the truth kindly when you need it. I do not want to compete with you. I want to be on your side.</p>
+      </section>
+      <section id="trust">
+        <h2>Why you can trust me</h2>
+        <p>Now the part about trust, because you are allowed to have questions, especially about someone you only know through a screen. You are the one taking the bigger risk. You have to decide whether I am sincere, whether I am who I say I am, and whether giving me your time will cost you anything. Your caution is smart, and I am not going to try to talk you out of it. I cannot demand trust. I can only explain why I think I am worth it, and then let my behavior either prove that or break it.</p>
+        <p>My first reason is consistency. I am the same person in text, on camera, and in real life, whether or not it benefits me. I do not want to be charming in the chat and careless everywhere else. The small stuff matters most here: replying honestly instead of saying whatever is easiest, remembering what you told me last week, and showing up when I said I would. Trust does not get built in one big moment. It gets built from the same small behavior repeated until it is boring to doubt.</p>
+        <p>There are also things I will not do, and I think it is fair to say them out loud. I will not ghost you. I will not send mixed signals or keep you guessing about where you stand. I will not flirt with you in private and act like we are strangers in public. If I change my mind, I will tell you plainly. If something is bothering me, I will say so instead of going cold. You should never have to decode me, and I plan on making that easy.</p>
+        <p>My second reason is honesty, including about my flaws. I overthink things, I get nervous around people I like, and I can be awkward when I care how something turns out. I probably did all three while writing this. I would rather you know that now than discover it later and wonder what else I left out. A polished version of me would fall apart the first time the real one showed up. I would rather be a little awkward and honest than smooth and fake.</p>
+        <p>You might be thinking that all of this is easy to say, and you would be right. Anyone can claim they are honest, consistent, and respectful, and the people who say it the loudest are not always the ones who mean it. Words are cheap, and this letter is only words. That is why I am not asking you to believe me in advance. I am asking for a chance to show you. Hold me to what I wrote, watch whether my actions match, and call it out if they do not. I would rather be tested than trusted blindly.</p>
+        <p>Trust also has to go both ways. I would want you to feel free to ask me hard questions, to check that my words match my actions, and to tell me straight away if something I did bothered you. I would want to do the same with you. Two people who can question and correct each other build something sturdier than two people trying to impress each other. If you ever start to doubt me, say so directly instead of quietly pulling away, because a doubt that gets spoken can be answered.</p>
+      </section>
+      <section id="meet">
+        <h2>Meeting for real</h2>
+        <p class="note">Because we met online, I want to make the safe way to do this the easy way. If you would like to video call first, I am completely in. If you want to bring a friend, pick a busy public place, or tell someone exactly where you are and when you will be back, do all of it. I would be more worried if you did not. Someone who is serious about you should be glad you are careful, and I am. Taking your safety seriously is part of taking you seriously.</p>
+        <p>Chemistry is the one thing a screen cannot give me. You can have great conversations and still feel nothing when you are sitting across from each other, and I want to find out which way it goes. That is part of why I want to meet. I am not assuming it will be perfect. I am assuming it will be informative, and I am willing to take the risk that the answer is something I did not expect. At least then I would know, instead of wondering for months.</p>
+        <p>And if the first meeting is awkward, which it might be, I am completely fine with that. We will probably both be a little nervous, and the first ten minutes might be clumsy. I will laugh at myself first so you do not have to. Awkward is not the opposite of chemistry. Sometimes it is just two people who both care a little too much about making a good impression, and I would take that over a perfectly smooth night with someone I did not care about.</p>
+        <p>I also respect your pace. If you want to take it slow, stay friends, keep talking online for a while, or just need space to think, I will not treat that as a problem to solve with pressure, guilt, or persistence. And if the answer is no, I will take it like an adult, without bargaining or sulking, and we will still be fine. A person who can hear a no gracefully is the only kind of person whose yes means anything.</p>
+        <p>So here is the offer. A video call first if you would like to ease into it, then coffee somewhere public, with the time and place up to you. No pressure, no pretending, and no strings, except that I would like to see you for real. We can talk for an hour or ten minutes, it does not matter. I just want to find out whether the person I have been talking to on a screen is as good in person as I think, and I will not be offended if you want the same proof from me.</p>
+        <p>One more thing, since you deserve a clear idea of what I want and not just what I feel. I am not looking for a quick thing, and I am not collecting numbers. I want to see you, find out whether we click, and if we do, keep going and see where it leads. If it ends up being friendship, I will take that seriously too. I would rather have you in my life honestly than not at all, and I would rather know the truth than hold on to a version of this that is not real.</p>
+      </section>
+      <section id="last">
+        <h2>The last bit</h2>
+        <p>I know this is a long letter, and I know you could have stopped reading three pages ago. The fact that I wrote this much is not meant to overwhelm you. It is meant to show that I thought about this carefully and that I am not treating it like a joke. I would rather give you too much honesty than too little. If you read all of it, thank you, and if you only skimmed, the short version is simple: I like you, I want to meet you, and I will be straight with you the whole way through. Everything else on these pages is just me proving I mean it.</p>
+        <p>If you say no, I will take it well and we are still good. If you say yes, fair warning: I play to win, I take the details seriously, and I plan on being worth your time. I cannot prove that with an argument, however well I write it. I can only show up, stay honest, and keep doing it until the claim is hard to argue with. So, what do you think?</p>
+      </section>
+    <p class="signoff" id="signoff">Zee</p>
+  </article>
+</div>
+
+<section class="reply" id="reply" aria-labelledby="replyTitle">
+  <div class="reply-inner">
+    <h2 id="replyTitle">So, what do you think?</h2>
+    <p class="sub">Pick one to start a message, then change it however you want. Nothing is sent from this page. You copy it, or open the chat if a link is set up.</p>
+
+    <div class="choices" role="group" aria-label="Quick replies">
+      <button class="choice" type="button" aria-pressed="false" data-key="yes">Yes, let's meet</button>
+      <button class="choice" type="button" aria-pressed="false" data-key="call">Video call first</button>
+      <button class="choice" type="button" aria-pressed="false" data-key="slow">Let's go slower</button>
+    </div>
+
+    <label for="msg">Your message</label>
+    <textarea id="msg" placeholder="Pick an option above, or write your own."></textarea>
+
+    <div class="reply-actions">
+      <button class="btn btn-yellow" id="copyBtn" type="button" disabled>Copy message</button>
+      <a class="btn btn-ghost" id="chatLink" href="#" target="_blank" rel="noopener" hidden>Open chat</a>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+    <p class="foot">Take your time. A slow answer is fine.</p>
+  </div>
+</section>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  var cfg = window.CONFIG || {};
+  var params = new URLSearchParams(location.search);
+  var name = (params.get("to") || cfg.name || "").trim().slice(0, 40);
+  var from = (cfg.from || "Zee").trim();
+
+  document.getElementById("dear").textContent = name ? "Dear " + name + "," : "Hi,";
+  document.getElementById("byline").textContent = name ? "From " + from + " to " + name + "." : "From " + from + ".";
+  document.getElementById("signoff").textContent = from;
+  if (name) document.title = "A letter for " + name;
+
+  // Short version toggle
+  var shortBtn = document.getElementById("shortBtn");
+  var shortBox = document.getElementById("short");
+  shortBtn.addEventListener("click", function () {
+    var open = shortBox.hasAttribute("hidden");
+    if (open) shortBox.removeAttribute("hidden"); else shortBox.setAttribute("hidden", "");
+    shortBtn.setAttribute("aria-expanded", String(open));
+    shortBtn.textContent = open ? "Hide the short version" : "Give me the short version";
+  });
+
+  // Reading progress
+  var bar = document.getElementById("progress");
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = "scaleX(" + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ")";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // Active section in the rail
+  var links = Array.prototype.slice.call(document.querySelectorAll(".rail a"));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (a) { a.classList.remove("active"); });
+          var a = map[e.target.id];
+          if (a) a.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-20% 0px -65% 0px" });
+    Object.keys(map).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+  }
+
+  // Reply
+  var templates = {
+    yes: "I read the whole thing. I'm in. Let's pick a public place and a time that works for both of us.",
+    call: "I read it, and I appreciate the honesty. Let's do a video call first, then we'll see about meeting.",
+    slow: "I read it, and I appreciate you being straight with me. I'd like to keep talking for now, but I'm not ready to meet yet."
+  };
+  var msg = document.getElementById("msg");
+  var copyBtn = document.getElementById("copyBtn");
+  var chatLink = document.getElementById("chatLink");
+  var status = document.getElementById("status");
+  var choices = Array.prototype.slice.call(document.querySelectorAll(".choice"));
+
+  function sync() {
+    var has = msg.value.trim().length > 0;
+    copyBtn.disabled = !has;
+    if (cfg.contactUrl) {
+      var url = cfg.contactUrl;
+      if (/^mailto:/i.test(url)) {
+        url += (url.indexOf("?") === -1 ? "?" : "&") + "subject=" + encodeURIComponent("Re: your letter") + "&body=" + encodeURIComponent(msg.value);
+      }
+      chatLink.href = url;
+      chatLink.hidden = !has;
+    }
+  }
+  choices.forEach(function (b) {
+    b.addEventListener("click", function () {
+      choices.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true");
+      msg.value = templates[b.dataset.key];
+      status.textContent = "";
+      sync();
+      msg.focus();
+    });
+  });
+  msg.addEventListener("input", function () {
+    choices.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+    sync();
+  });
+  copyBtn.addEventListener("click", function () {
+    var text = msg.value;
+    function done(ok) { status.textContent = ok ? "Copied. Paste it into your chat." : "Couldn't copy automatically. Select the text and copy it."; }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+    } else {
+      msg.select();
+      try { done(document.execCommand("copy")); } catch (e) { done(false); }
+    }
+  });
+  sync();
+})();
+</script>
+</body>
+</html>
